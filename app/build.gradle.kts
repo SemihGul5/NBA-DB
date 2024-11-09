@@ -72,5 +72,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:22.2.0")
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
+    implementation ("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
 }

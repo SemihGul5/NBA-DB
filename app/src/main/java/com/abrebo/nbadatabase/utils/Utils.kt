@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import com.abrebo.nbadatabase.data.model.Player
+import kotlin.reflect.full.memberProperties
 
 object BackPressUtils {
 
@@ -25,4 +27,14 @@ object BackPressUtils {
         fragment.requireActivity().onBackPressedDispatcher.addCallback(lifecycleOwner, backButtonCallback)
     }
 }
+
+fun Player.sumAllIntAttributes(): Int {
+    return closeShot + midRangeShot + threePointShot + freeThrow + shotIQ + offensiveConsistency +
+            layup + standingDunk + drivingDunk + postHook + postFade + postControl + drawFoul + hands +
+            interiorDefense + perimeterDefense + steal + block + helpDefenseIQ + passPerception +
+            defensiveConsistency + speed + agility + strength + vertical + stamina + hustle +
+            overallDurability + passAccuracy + ballHandle + speedWithBall + passIQ + passVision +
+            offensiveRebound + defensiveRebound
+}
+
 

@@ -5,10 +5,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.abrebo.nbadatabase.R
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.databinding.PlayerItemBinding
+import com.abrebo.nbadatabase.ui.fragment.TeamDetailFragmentDirections
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 
 class TeamDetailAdapter(val context:Context,
@@ -41,6 +43,11 @@ class TeamDetailAdapter(val context:Context,
         viewModel.setAttributesBackground(player.drivingDunk, binding.drivingDunk)
 
         binding.tvRank.text=(position+1).toString()+"."
+
+        binding.playerCard.setOnClickListener {
+            val navDirection=TeamDetailFragmentDirections.actionTeamDetailFragmentToPlayerDetailFragment(player)
+            Navigation.findNavController(it).navigate(navDirection)
+        }
     }
 
 

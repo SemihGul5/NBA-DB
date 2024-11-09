@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor (var repository: Repository,
         val jsonString =repository.loadJsonFromAsset("team_stats")
         teamStats.value=repository.parseTeamStatsJson(jsonString!!)
     }
-    private fun getImageResourceByName(imageName: String): Int {
+    fun getImageResourceByName(imageName: String): Int {
         val resourceId = context.resources?.getIdentifier(imageName, "drawable", context.packageName)
         return if (resourceId != 0) {
             resourceId ?: R.drawable.default_image
