@@ -11,6 +11,11 @@ import com.abrebo.nbadatabase.databinding.FragmentPlayerDetailBinding
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.ui.viewmodel.UserViewModel
 import com.abrebo.nbadatabase.utils.sumAllIntAttributes
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -152,12 +157,8 @@ class PlayerDetailFragment : Fragment() {
         binding.totalAttributes.text=player.sumAllIntAttributes().toString()
         binding.totalAttributes.setBackgroundResource(R.drawable.blue_background)
 
-
-
-
-
-
-
+        viewModel.updateRadarChart(player.overallAttribute,defense,insideScoring,
+            rebounding,outsideScoring, playmarking, athleticism,binding.performanceChart)
 
 
 

@@ -13,6 +13,12 @@ import com.abrebo.nbadatabase.data.model.TeamItem
 import com.abrebo.nbadatabase.data.model.TeamStats
 import com.abrebo.nbadatabase.data.model.Teams
 import com.abrebo.nbadatabase.data.repo.Repository
+import com.github.mikephil.charting.charts.RadarChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -78,6 +84,73 @@ class HomeViewModel @Inject constructor (var repository: Repository,
             else -> R.drawable.overall_dark_red_background
         }
         textView.setBackgroundResource(backgroundResource)
+    }
+    fun updateRadarChart(
+        overall: Int,
+        defending: Int,
+        insideScoring: Int,
+        rebounding: Int,
+        outsideScoring: Int,
+        playmarking: Int,
+        athleticism:Int,
+        performanceChart:RadarChart
+    ) {
+        val entries = ArrayList<RadarEntry>()
+
+        entries.add(RadarEntry(overall.toFloat()))//1
+        entries.add(RadarEntry(insideScoring.toFloat()))//3
+        entries.add(RadarEntry(athleticism.toFloat()))//5
+        entries.add(RadarEntry(rebounding.toFloat()))//7
+        entries.add(RadarEntry(defending.toFloat()))//6
+        entries.add(RadarEntry(playmarking.toFloat()))//4
+        entries.add(RadarEntry(outsideScoring.toFloat()))//2
+
+        val dataSet = RadarDataSet(entries, "Performance")
+        dataSet.color = R.color.gray
+        dataSet.fillColor =  R.color.gray
+        dataSet.lineWidth = 1.5f
+        dataSet.setDrawFilled(true)
+        dataSet.fillAlpha = 80
+        dataSet.isDrawHighlightCircleEnabled=true
+        dataSet.setDrawHighlightIndicators(false)
+
+        val radarData = RadarData(dataSet)
+        performanceChart.data = radarData
+        performanceChart.xAxis.textSize = 10f
+        performanceChart.yAxis.textSize = 10f
+        performanceChart.legend.textSize = 11f
+
+
+        performanceChart.xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                return when (value.toInt()) {
+                    0 -> "OVERALL"
+                    1 -> "Inside Scoring"
+                    2 -> "Athleticism"
+                    3 -> "Rebounding"
+                    4 -> "Defense"
+                    5 -> "Playmaking"
+                    6 -> "Outside Scoring"
+                    else -> ""
+                }
+            }
+        }
+
+        performanceChart.yAxis.axisMaximum = 100f
+        performanceChart.yAxis.axisMinimum = 0f
+        performanceChart.xAxis.axisMaximum = 100f
+        performanceChart.xAxis.axisMinimum = 0f
+        performanceChart.yAxis.setDrawLabels(false)
+        performanceChart.yAxis.setDrawGridLines(false)
+        performanceChart.xAxis.setDrawGridLines(false)
+        performanceChart.yAxis.setDrawAxisLine(false)
+        performanceChart.xAxis.setDrawAxisLine(false)
+        performanceChart.yAxis.setDrawLabels(false)
+        performanceChart.yAxis.setDrawGridLines(false)
+        performanceChart.xAxis.setDrawGridLines(false)
+        performanceChart.legend.isEnabled=false
+        performanceChart.animateXY(1000, 1000)
+        performanceChart.invalidate()
     }
     fun loadTeamItems():List<TeamItem>{
         return listOf(
