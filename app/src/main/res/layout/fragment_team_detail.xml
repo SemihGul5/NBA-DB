@@ -73,7 +73,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="T3"
-                            android:background="@drawable/overall_bronze_background"
+                            android:background="@drawable/blue_background"
                             android:padding="8dp"
                             android:gravity="center"
                             android:textColor="@android:color/white"

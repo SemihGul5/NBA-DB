@@ -71,6 +71,6 @@ dependencies {
     implementation ("com.airbnb.android:lottie:3.4.0")
     implementation("com.google.android.gms:play-services-ads:22.2.0")
     implementation ("com.squareup.picasso:picasso:2.8")
-
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }

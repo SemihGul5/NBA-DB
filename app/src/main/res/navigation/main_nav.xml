@@ -21,5 +21,16 @@
         <argument
             android:name="team"
             app:argType="com.abrebo.nbadatabase.data.model.TeamItem" />
+        <action
+            android:id="@+id/action_teamDetailFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerDetailFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.PlayerDetailFragment"
+        android:label="PlayerDetailFragment" >
+        <argument
+            android:name="player"
+            app:argType="com.abrebo.nbadatabase.data.model.Player" />
     </fragment>
 </navigation>

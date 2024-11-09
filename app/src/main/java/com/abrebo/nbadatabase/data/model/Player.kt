@@ -1,5 +1,7 @@
 package com.abrebo.nbadatabase.data.model
 
+import java.io.Serializable
+
 data class Player(
     val name: String,
     val team: String,
@@ -41,4 +43,4 @@ data class Player(
     val offensiveRebound: Int,
     val defensiveRebound: Int,
     var id:Int
-)
+):Serializable

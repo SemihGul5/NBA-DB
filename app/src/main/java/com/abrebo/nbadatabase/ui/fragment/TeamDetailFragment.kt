@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.databinding.FragmentTeamDetailBinding
@@ -39,30 +40,40 @@ class TeamDetailFragment : Fragment() {
                     players.add(it)
                 }
             }
-            val firstEightPlayers =players.sortedByDescending { it.overallAttribute }.take(8)
-            val totalOverall = firstEightPlayers.sumOf { it.overallAttribute }
-            val ovr = totalOverall / firstEightPlayers.size
-
-
-            val avgInsideScoring=firstEightPlayers.sumOf { it.layup+it.standingDunk+it.drivingDunk
-                +it.postHook+it.postFade+it.postControl+it.drawFoul+it.hands}/8.0
-            val avgOutsideScoring=firstEightPlayers.sumOf { it.closeShot+it.midRangeShot+it.threePointShot
-            +it.freeThrow+it.shotIQ+it.offensiveConsistency}/6.0
-            val ins=((avgOutsideScoring+avgInsideScoring)/2.0)/8
-
-
-
-
-
-            binding.ovrText.text=ovr.toString()
-            binding.insText.text=ins.toString()
-            val adapter=TeamDetailAdapter(requireContext(),players)
+            val adapter=TeamDetailAdapter(requireContext(),players,viewModel)
             binding.teamPlayersRecyclerView.adapter=adapter
         }
 
         binding.teamLogoImageView.setImageResource(team.logo)
         binding.teamNameTextView.text=team.name
-        binding.tierText.text="T3"//veri alınacak
+
+        viewModel.teamStats.observe(viewLifecycleOwner){teamStatsList->
+            teamStatsList.forEach {
+                if (it.team_name==team.name){
+                    binding.tierText.text=it.tier
+                    binding.ovrText.text=it.ovr
+                    binding.insText.text=it.ins
+                    binding.outText.text=it.out
+                    binding.athText.text=it.ath
+                    binding.plaText.text=it.pla
+                    binding.defText.text=it.def
+                    binding.rebText.text=it.reb
+                    binding.intText.text=it.int
+                    binding.potText.text=it.pot
+                    viewModel.setAttributesBackground(it.ovr.toInt(), binding.ovrText)
+                    viewModel.setAttributesBackground(it.ins.toInt(), binding.insText)
+                    viewModel.setAttributesBackground(it.out.toInt(), binding.outText)
+                    viewModel.setAttributesBackground(it.ath.toInt(), binding.athText)
+                    viewModel.setAttributesBackground(it.pla.toInt(), binding.plaText)
+                    viewModel.setAttributesBackground(it.def.toInt(), binding.defText)
+                    viewModel.setAttributesBackground(it.reb.toInt(), binding.rebText)
+                    viewModel.setAttributesBackground(it.int.toInt(), binding.intText)
+                    viewModel.setAttributesBackground(it.pot.toInt(), binding.potText)
+
+                }
+            }
+        }
+
 
 
 

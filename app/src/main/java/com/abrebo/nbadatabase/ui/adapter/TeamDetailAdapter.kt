@@ -1,5 +1,6 @@
 package com.abrebo.nbadatabase.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abrebo.nbadatabase.R
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.databinding.PlayerItemBinding
+import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 
-class TeamDetailAdapter(val context:Context,val players:List<Player>):RecyclerView.Adapter<TeamDetailAdapter.PlayerHolder>() {
+class TeamDetailAdapter(val context:Context,
+                        val players:List<Player>,
+                        val viewModel:HomeViewModel
+):RecyclerView.Adapter<TeamDetailAdapter.PlayerHolder>() {
     inner class PlayerHolder(val binding:PlayerItemBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerHolder {
@@ -21,6 +26,7 @@ class TeamDetailAdapter(val context:Context,val players:List<Player>):RecyclerVi
         return players.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PlayerHolder, position: Int) {
         val binding=holder.binding
         val player=players.get(position)
@@ -30,23 +36,14 @@ class TeamDetailAdapter(val context:Context,val players:List<Player>):RecyclerVi
         binding.playerOverall.text=player.overallAttribute.toString()
         binding.threePoint.text=player.threePointShot.toString()
         binding.drivingDunk.text=player.drivingDunk.toString()
-        setAttributesBackground(player.overallAttribute, binding.playerOverall)
-        setAttributesBackground(player.threePointShot, binding.threePoint)
-        setAttributesBackground(player.drivingDunk, binding.drivingDunk)
+        viewModel.setAttributesBackground(player.overallAttribute, binding.playerOverall)
+        viewModel.setAttributesBackground(player.threePointShot, binding.threePoint)
+        viewModel.setAttributesBackground(player.drivingDunk, binding.drivingDunk)
 
+        binding.tvRank.text=(position+1).toString()+"."
     }
 
-    private fun setAttributesBackground(attributeValue: Int, textView: TextView) {
-        val backgroundResource = when {
-            attributeValue > 85 -> R.drawable.overall_dark_green_background
-            attributeValue in 80..85 -> R.drawable.overall_light_green_background
-            attributeValue in 75..79 -> R.drawable.overall_dark_yellow_background
-            attributeValue in 70..74 -> R.drawable.overall_light_gray_background
-            attributeValue in 60..69 -> R.drawable.overall_orange_background
-            else -> R.drawable.overall_dark_red_background
-        }
-        textView.setBackgroundResource(backgroundResource)
-    }
+
 
 
     private fun getImageResourceByName(imageName: String): Int {

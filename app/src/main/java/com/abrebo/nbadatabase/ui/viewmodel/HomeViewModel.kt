@@ -3,12 +3,14 @@ package com.abrebo.nbadatabase.ui.viewmodel
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
+import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.abrebo.nbadatabase.R
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.data.model.TeamItem
+import com.abrebo.nbadatabase.data.model.TeamStats
 import com.abrebo.nbadatabase.data.model.Teams
 import com.abrebo.nbadatabase.data.repo.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,10 +27,12 @@ class HomeViewModel @Inject constructor (var repository: Repository,
     val players=MutableLiveData<List<Player>>()
     val teams=MutableLiveData<List<Teams>>()
     val teamsAsset=MutableLiveData<Teams>()
+    val teamStats=MutableLiveData<List<TeamStats>>()
 
     init {
         loadPlayersFromAsset()
         loadTeamsFromAsset()
+        loadTeamStatsFromAsset()
     }
 
     fun getRosterWithTeamsFromApi(){
@@ -50,7 +54,10 @@ class HomeViewModel @Inject constructor (var repository: Repository,
     }
     private fun loadTeamsFromAsset() {
         teamsAsset.value =repository.parseTeamsJson("roster")
-
+    }
+    private fun loadTeamStatsFromAsset(){
+        val jsonString =repository.loadJsonFromAsset("team_stats")
+        teamStats.value=repository.parseTeamStatsJson(jsonString!!)
     }
     private fun getImageResourceByName(imageName: String): Int {
         val resourceId = context.resources?.getIdentifier(imageName, "drawable", context.packageName)
@@ -60,6 +67,17 @@ class HomeViewModel @Inject constructor (var repository: Repository,
             R.drawable.default_image
         }
         //val imageResource = getImageResourceByName(question.player.imageUrl)
+    }
+    fun setAttributesBackground(attributeValue: Int, textView: TextView) {
+        val backgroundResource = when {
+            attributeValue > 85 -> R.drawable.overall_dark_green_background
+            attributeValue in 80..85 -> R.drawable.overall_light_green_background
+            attributeValue in 75..79 -> R.drawable.overall_dark_yellow_background
+            attributeValue in 70..74 -> R.drawable.overall_light_gray_background
+            attributeValue in 60..69 -> R.drawable.overall_orange_background
+            else -> R.drawable.overall_dark_red_background
+        }
+        textView.setBackgroundResource(backgroundResource)
     }
     fun loadTeamItems():List<TeamItem>{
         return listOf(

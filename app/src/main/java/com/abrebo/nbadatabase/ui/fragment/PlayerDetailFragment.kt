@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.abrebo.nbadatabase.databinding.FragmentRankBinding
+import com.abrebo.nbadatabase.databinding.FragmentPlayerDetailBinding
 import com.abrebo.nbadatabase.ui.viewmodel.UserViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
@@ -15,8 +15,8 @@ import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankFragment : Fragment() {
-    private lateinit var binding:FragmentRankBinding
+class PlayerDetailFragment : Fragment() {
+    private lateinit var binding:FragmentPlayerDetailBinding
     private val viewModel:UserViewModel by viewModels()
     private lateinit var adView: AdView
 
@@ -25,7 +25,7 @@ class RankFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding=FragmentRankBinding.inflate(inflater, container, false)
+        binding=FragmentPlayerDetailBinding.inflate(inflater, container, false)
         MobileAds.initialize(requireContext()) {}
 
         // Setup Banner Ad
