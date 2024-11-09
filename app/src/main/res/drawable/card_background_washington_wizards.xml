@@ -1,0 +1,21 @@
+<!-- res/drawable/card_background_new_york_knicks.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#002b5c"
+                android:endColor="#000000"
+                android:angle="0"/>
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <bitmap
+            android:src="@drawable/washington_wizards_logo"
+            android:alpha="0.2"
+            android:gravity="center"
+            android:tileMode="disabled"
+            android:scaleType="centerInside"/>
+    </item>
+</layer-list>

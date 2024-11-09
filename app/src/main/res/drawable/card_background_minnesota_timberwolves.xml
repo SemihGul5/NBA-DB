@@ -1,0 +1,21 @@
+<!-- res/drawable/card_background_minnesota_timberwolves.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#276096"
+                android:endColor="#000000"
+                android:angle="0"/>
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <bitmap
+            android:src="@drawable/minnesota_timberwolves_logo"
+            android:alpha="0.2"
+            android:gravity="center"
+            android:tileMode="disabled"
+            android:scaleType="centerInside"/>
+    </item>
+</layer-list>

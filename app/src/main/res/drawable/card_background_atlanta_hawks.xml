@@ -1,0 +1,23 @@
+<!-- res/drawable/card_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Arka plan için renk geçişi -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#C8102E"
+                android:endColor="#000000"
+                android:angle="0"/>
+        </shape>
+    </item>
+
+    <!-- Logo -->
+    <item android:gravity="center">
+        <bitmap
+            android:src="@drawable/atlanta_hawks_logo"
+            android:alpha="0.2"
+            android:gravity="center"
+            android:tileMode="disabled"
+            android:scaleType="centerInside"/>
+    </item>
+</layer-list>
