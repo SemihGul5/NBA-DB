@@ -1,0 +1,21 @@
+<!-- res/drawable/card_background_milwaukee_bucks.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#007A33"
+                android:endColor="#000000"
+                android:angle="0"/>
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <bitmap
+            android:src="@drawable/tatum_wallpaper"
+            android:alpha="0.2"
+            android:gravity="center"
+            android:tileMode="disabled"
+            android:scaleType="centerInside"/>
+    </item>
+</layer-list>

@@ -35,8 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val typeface = ResourcesCompat.getFont(requireContext(), R.font.pacifico)
-        binding.textView.typeface = typeface
+
         MobileAds.initialize(requireContext()) {}
         adView = AdView(requireContext())
         adView.adUnitId = "ca-app-pub-4667560937795938/8788267145"

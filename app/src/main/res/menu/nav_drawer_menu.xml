@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/top100PlayerFragment"
+        android:icon="@drawable/trophy"
+        android:title="Top 100 Players" />
+    <item
+        android:id="@+id/bestThreePointPlayersFragment"
+        android:icon="@drawable/trophy"
+        android:title="Best Three Point Players" />
+</menu>

@@ -6,6 +6,16 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/top100PlayerFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.Top100PlayerFragment"
+        android:label="fragment_top100_player"
+        tools:layout="@layout/fragment_top100_player" />
+    <fragment
+        android:id="@+id/bestThreePointPlayersFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.BestThreePointPlayersFragment"
+        android:label="fragment_best_three_point_players"
+        tools:layout="@layout/fragment_best_three_point_players" />
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.HomeFragment"
         android:label="fragment_home"
@@ -33,4 +43,9 @@
             android:name="player"
             app:argType="com.abrebo.nbadatabase.data.model.Player" />
     </fragment>
+    <fragment
+        android:id="@+id/navDrawerFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.NavDrawerFragment"
+        android:label="fragment_nav_drawer"
+        tools:layout="@layout/fragment_nav_drawer" />
 </navigation>
