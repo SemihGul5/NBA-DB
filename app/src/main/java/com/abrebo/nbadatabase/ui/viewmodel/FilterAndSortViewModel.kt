@@ -63,7 +63,6 @@ class FilterAndSortViewModel @Inject constructor (var repository: Repository,
                 else -> parsedPlayers
             }
         }
-        Log.e("basket:",players.value.toString())
     }
     fun players() {
         val jsonString =repository.loadJsonFromAsset("roster_with_ids")

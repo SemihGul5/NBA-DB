@@ -23,7 +23,6 @@ class FilterAndSortPlayersFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.players()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentFilterAndSortPlayersBinding.inflate(inflater, container, false)
@@ -46,7 +45,6 @@ class FilterAndSortPlayersFragment : Fragment() {
         }
 
         viewModel.players.observe(viewLifecycleOwner) { players ->
-            Log.e("basket::",players.toString())
             val selectedAttribute = binding.autoCompleteTextView.text.toString()
             val teamDetailAdapter = TeamDetailAdapter(
                 requireContext(),
