@@ -12,4 +12,12 @@
         android:id="@+id/bestThreePointPlayersFragment"
         android:icon="@drawable/trophy"
         android:title="Best Three Point Players" />
+    <item
+        android:id="@+id/filterAndSortPlayersFragment"
+        android:icon="@drawable/baseline_filter_alt_24"
+        android:title="Filter And Sort Players" />
+    <item
+        android:id="@+id/sortedFragment"
+        android:icon="@drawable/sort"
+        android:title="Sort Teams" />
 </menu>

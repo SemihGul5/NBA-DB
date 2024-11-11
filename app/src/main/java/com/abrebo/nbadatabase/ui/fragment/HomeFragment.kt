@@ -20,6 +20,7 @@ import com.abrebo.nbadatabase.databinding.FragmentHomeBinding
 import com.abrebo.nbadatabase.ui.adapter.TeamAdapter
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.BackPressUtils
+import com.abrebo.nbadatabase.utils.PageType
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -62,44 +63,11 @@ class HomeFragment : Fragment() {
         BackPressUtils.setBackPressCallback(this, viewLifecycleOwner)
 
         viewModel.sortedTeams.observe(viewLifecycleOwner) { sortedTeams ->
-            val adapter = TeamAdapter(requireContext(), sortedTeams)
+            val adapter = TeamAdapter(requireContext(), sortedTeams,PageType.HOME,null)
             binding.recyclerViewTeams.adapter = adapter
         }
 
 
     }
-    private fun sortedMenu():List<String>{
-        return listOf(
-            "Default",
-            "Overall",
-            "Inside Scoring",
-            "Outside Scoring",
-            "Athleticism",
-            "Playmaking",
-            "Defense",
-            "Rebounding",
-            "Intangibles",
-            "Potential"
-        )
-    }
-    private fun handleFilterMenuItem() {
-        val dialog = BottomSheetDialog(requireContext())
-        val bottomSheet = layoutInflater.inflate(R.layout.main_page_bottom_sheet, null)
-        val listView = bottomSheet.findViewById<ListView>(R.id.listViewBottomSheet)
-        val listViewAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, sortedMenu())
-        listView.adapter = listViewAdapter
 
-        listView.setOnItemClickListener { parent, view, position, id ->
-            val selectedItemText = (parent.getItemAtPosition(position) as String)
-            viewModel.sortedTeamsFromAsset(selectedItemText)
-            Toast.makeText(requireContext(),selectedItemText, Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
-            viewModel.sortedTeams.observe(viewLifecycleOwner) { sortedTeams ->
-                val adapter = TeamAdapter(requireContext(), sortedTeams)
-                binding.recyclerViewTeams.adapter = adapter
-            }
-        }
-        dialog.setContentView(bottomSheet)
-        dialog.show()
-    }
 }

@@ -12,6 +12,7 @@ import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.databinding.FragmentTeamDetailBinding
 import com.abrebo.nbadatabase.ui.adapter.TeamDetailAdapter
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
+import com.abrebo.nbadatabase.utils.PageType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +40,7 @@ class TeamDetailFragment : Fragment() {
                     players.add(it)
                 }
             }
-            val adapter=TeamDetailAdapter(requireContext(),players,viewModel)
+            val adapter=TeamDetailAdapter(requireContext(),players,viewModel,null,PageType.TEAM_DETAIL,null)
             binding.teamPlayersRecyclerView.adapter=adapter
         }
 

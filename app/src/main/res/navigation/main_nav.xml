@@ -14,7 +14,11 @@
         android:id="@+id/bestThreePointPlayersFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.BestThreePointPlayersFragment"
         android:label="fragment_best_three_point_players"
-        tools:layout="@layout/fragment_best_three_point_players" />
+        tools:layout="@layout/fragment_best_three_point_players" >
+        <action
+            android:id="@+id/action_bestThreePointPlayersFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.HomeFragment"
@@ -47,5 +51,18 @@
         android:id="@+id/sortedFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.SortedFragment"
         android:label="fragment_sorted"
-        tools:layout="@layout/fragment_sorted" />
+        tools:layout="@layout/fragment_sorted" >
+        <action
+            android:id="@+id/action_sortedFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterAndSortPlayersFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.FilterAndSortPlayersFragment"
+        android:label="fragment_filter_and_sort_players"
+        tools:layout="@layout/fragment_filter_and_sort_players" >
+        <action
+            android:id="@+id/action_filterAndSortPlayersFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
 </navigation>
