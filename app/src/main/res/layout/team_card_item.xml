@@ -20,6 +20,14 @@
             android:layout_height="150dp"
             android:background="@drawable/card_background_atlanta_hawks">
 
+            <TextView
+                android:id="@+id/sortedText"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                />
+
             <ImageView
                 android:id="@+id/logoImageView"
                 android:layout_width="60dp"

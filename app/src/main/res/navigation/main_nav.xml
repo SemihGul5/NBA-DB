@@ -44,8 +44,8 @@
             app:argType="com.abrebo.nbadatabase.data.model.Player" />
     </fragment>
     <fragment
-        android:id="@+id/navDrawerFragment"
-        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.NavDrawerFragment"
-        android:label="fragment_nav_drawer"
-        tools:layout="@layout/fragment_nav_drawer" />
+        android:id="@+id/sortedFragment"
+        android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.SortedFragment"
+        android:label="fragment_sorted"
+        tools:layout="@layout/fragment_sorted" />
 </navigation>

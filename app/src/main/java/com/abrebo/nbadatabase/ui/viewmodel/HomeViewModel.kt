@@ -19,6 +19,8 @@ import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -34,11 +36,13 @@ class HomeViewModel @Inject constructor (var repository: Repository,
     val teams=MutableLiveData<List<Teams>>()
     val teamsAsset=MutableLiveData<Teams>()
     val teamStats=MutableLiveData<List<TeamStats>>()
+    val sortedTeams = MutableLiveData<List<TeamItem>>()
 
     init {
         loadPlayersFromAsset()
         loadTeamsFromAsset()
         loadTeamStatsFromAsset()
+        sortedTeamsFromAsset("Defaault")
     }
 
     fun getRosterWithTeamsFromApi(){
@@ -58,8 +62,23 @@ class HomeViewModel @Inject constructor (var repository: Repository,
             players.value = repository.parsePlayerJson(jsonString)
         }
     }
-    private fun loadTeamsFromAsset() {
+    fun loadTeamsFromAsset() {
         teamsAsset.value =repository.parseTeamsJson("roster")
+    }
+    fun sortedTeamsFromAsset(sortInfo: String) {
+        val sortedList = when (sortInfo) {
+            "Default" -> loadTeamItems()
+            "Overall" -> loadTeamItems().sortedByDescending { it.ovr }
+            "Inside Scoring" -> loadTeamItems().sortedByDescending { it.ins }
+            "Outside Scoring" -> loadTeamItems().sortedByDescending { it.out }
+            "Playmaking" -> loadTeamItems().sortedByDescending { it.pla }
+            "Defense" -> loadTeamItems().sortedByDescending { it.def }
+            "Rebounding" -> loadTeamItems().sortedByDescending { it.reb }
+            "Intangibles" -> loadTeamItems().sortedByDescending { it.int }
+            "Potential" -> loadTeamItems().sortedByDescending { it.pot }
+            else -> loadTeamItems()
+        }
+        sortedTeams.value = sortedList
     }
     private fun loadTeamStatsFromAsset(){
         val jsonString =repository.loadJsonFromAsset("team_stats")
@@ -152,47 +171,59 @@ class HomeViewModel @Inject constructor (var repository: Repository,
         performanceChart.animateXY(1000, 1000)
         performanceChart.invalidate()
     }
-    fun loadTeamItems():List<TeamItem>{
-        return listOf(
-            TeamItem("Atlanta Hawks",R.drawable.atlanta_hawks_logo,R.drawable.card_background_atlanta_hawks),
-            TeamItem("Boston Celtics",R.drawable.boston_celtics_logo,R.drawable.card_background_boston_celtics),
-            TeamItem("Brooklyn Nets",R.drawable.brooklyn_nets_logo,R.drawable.card_background_brooklyn_nets),
-            TeamItem("Charlotte Hornets",R.drawable.charlotte_hornets_logo,R.drawable.card_background_charlotte_hornets),
-            TeamItem("Chicago Bulls",R.drawable.chicago_bulls_logo,R.drawable.card_background_chicago_bulls),
-            TeamItem("Cleveland Cavaliers",R.drawable.cleveland_cavaliers_logo,R.drawable.card_background_cleveland_cavaliers),
-            TeamItem("Dallas Mavericks",R.drawable.dallas_mavericks_logo,R.drawable.card_background_dallas_mavericks),
-            TeamItem("Denver Nuggets",R.drawable.denver_nuggets_logo,R.drawable.card_background_denver_nuggets),
-            TeamItem("Detroit Pistons",R.drawable.detroit_pistons_logo,R.drawable.card_background_detroit_pistons),
-            TeamItem("Golden State Warriors",R.drawable.golden_state_warriors_logo,R.drawable.card_background_golden_state_warriors),
-            TeamItem("Houston Rockets",R.drawable.houston_rockets_logo,R.drawable.card_background_houston_rockets),
-            TeamItem("Indiana Pacers",R.drawable.indiana_pacers_logo,R.drawable.card_background_indiana_pacers),
-            TeamItem("Los Angeles Clippers",R.drawable.los_angeles_clippers_logo,R.drawable.card_background_los_angeles_clippers),
-            TeamItem("Los Angeles Lakers",R.drawable.los_angeles_lakers_logo,R.drawable.card_background_los_angeles_lakers),
-            TeamItem("Memphis Grizzlies",R.drawable.memphis_grizzlies_logo,R.drawable.card_background_memphis_grizzlies),
-            TeamItem("Miami Heat",R.drawable.miami_heat_logo,R.drawable.card_background_miami_heat),
-            TeamItem("Milwaukee Bucks",R.drawable.milwaukee_bucks_logo,R.drawable.card_background_milwaukee_bucks),
-            TeamItem("Minnesota Timberwolves",R.drawable.minnesota_timberwolves_logo,R.drawable.card_background_minnesota_timberwolves),
-            TeamItem("New Orleans Pelicans",R.drawable.new_orleans_pelicans_logo,R.drawable.card_background_new_orleans_pelicans),
-            TeamItem("New York Knicks",R.drawable.new_york_knicks_logo,R.drawable.card_background_new_york_knicks),
-            TeamItem("Oklahoma City Thunder",R.drawable.oklahoma_city_thunder_logo,R.drawable.card_background_oklahoma_city_thunder),
-            TeamItem("Orlando Magic",R.drawable.orlando_magic_logo,R.drawable.card_background_orlando_magic),
-            TeamItem("Philadelphia 76ers",R.drawable.philadelphia_ers_logo,R.drawable.card_background_philadelphia_76ers),
-            TeamItem("Phoenix Suns",R.drawable.phoenix_suns_logo,R.drawable.card_background_phoenix_suns),
-            TeamItem("Portland Trail Blazers",R.drawable.portland_trail_blazers_logo,R.drawable.card_background_portland_trail_blazers),
-            TeamItem("Sacramento Kings",R.drawable.sacramentokings_logo,R.drawable.card_background_sacramento_kings),
-            TeamItem("San Antonio Spurs",R.drawable.san_antonio_spurs_logo,R.drawable.card_background_san_antonio_spurs),
-            TeamItem("Toronto Raptors",R.drawable.toronto_raptors_logo,R.drawable.card_background_toronto_raptors),
-            TeamItem("Utah Jazz",R.drawable.utah_jazz_logo,R.drawable.card_background_utah_jazz),
-            TeamItem("Washington Wizards",R.drawable.washington_wizards_logo,R.drawable.card_background_washington_wizards)
+    fun loadTeamItems(): List<TeamItem> {
+        val jsonFileString = repository.loadJsonFromAsset("team_stats")
+        val teamStats: List<TeamStats> = repository.parseTeamStatsJson(jsonFileString!!)
 
+        val teamImages = mapOf(
+            "Atlanta Hawks" to Pair(R.drawable.atlanta_hawks_logo, R.drawable.card_background_atlanta_hawks),
+            "Boston Celtics" to Pair(R.drawable.boston_celtics_logo, R.drawable.card_background_boston_celtics),
+            "Brooklyn Nets" to Pair(R.drawable.brooklyn_nets_logo, R.drawable.card_background_brooklyn_nets),
+            "Charlotte Hornets" to Pair(R.drawable.charlotte_hornets_logo, R.drawable.card_background_charlotte_hornets),
+            "Chicago Bulls" to Pair(R.drawable.chicago_bulls_logo, R.drawable.card_background_chicago_bulls),
+            "Cleveland Cavaliers" to Pair(R.drawable.cleveland_cavaliers_logo,R.drawable.card_background_cleveland_cavaliers),
+            "Dallas Mavericks" to Pair(R.drawable.dallas_mavericks_logo,R.drawable.card_background_dallas_mavericks),
+            "Denver Nuggets" to Pair(R.drawable.denver_nuggets_logo,R.drawable.card_background_denver_nuggets),
+            "Detroit Pistons" to Pair(R.drawable.detroit_pistons_logo,R.drawable.card_background_detroit_pistons),
+            "Golden State Warriors" to Pair(R.drawable.golden_state_warriors_logo,R.drawable.card_background_golden_state_warriors),
+            "Houston Rockets" to Pair(R.drawable.houston_rockets_logo,R.drawable.card_background_houston_rockets),
+            "Indiana Pacers" to Pair(R.drawable.indiana_pacers_logo,R.drawable.card_background_indiana_pacers),
+            "Los Angeles Clippers" to Pair(R.drawable.los_angeles_clippers_logo,R.drawable.card_background_los_angeles_clippers),
+            "Los Angeles Lakers" to Pair(R.drawable.los_angeles_lakers_logo,R.drawable.card_background_los_angeles_lakers),
+            "Memphis Grizzlies" to Pair(R.drawable.memphis_grizzlies_logo,R.drawable.card_background_memphis_grizzlies),
+            "Miami Heat" to Pair(R.drawable.miami_heat_logo,R.drawable.card_background_miami_heat),
+            "Milwaukee Bucks" to Pair(R.drawable.milwaukee_bucks_logo,R.drawable.card_background_milwaukee_bucks),
+            "Minnesota Timberwolves" to Pair(R.drawable.minnesota_timberwolves_logo,R.drawable.card_background_minnesota_timberwolves),
+            "New Orleans Pelicans" to Pair(R.drawable.new_orleans_pelicans_logo,R.drawable.card_background_new_orleans_pelicans),
+            "New York Knicks" to Pair(R.drawable.new_york_knicks_logo,R.drawable.card_background_new_york_knicks),
+            "Oklahoma City Thunder" to Pair(R.drawable.oklahoma_city_thunder_logo,R.drawable.card_background_oklahoma_city_thunder),
+            "Orlando Magic" to Pair(R.drawable.orlando_magic_logo,R.drawable.card_background_orlando_magic),
+            "Philadelphia 76ers" to Pair(R.drawable.philadelphia_ers_logo,R.drawable.card_background_philadelphia_76ers),
+            "Phoenix Suns" to Pair(R.drawable.phoenix_suns_logo,R.drawable.card_background_phoenix_suns),
+            "Portland Trail Blazers" to Pair(R.drawable.portland_trail_blazers_logo,R.drawable.card_background_portland_trail_blazers),
+            "Sacramento Kings" to Pair(R.drawable.sacramentokings_logo,R.drawable.card_background_sacramento_kings),
+            "San Antonio Spurs" to Pair(R.drawable.san_antonio_spurs_logo,R.drawable.card_background_san_antonio_spurs),
+            "Toronto Raptors" to Pair(R.drawable.toronto_raptors_logo,R.drawable.card_background_toronto_raptors),
+            "Utah Jazz" to Pair(R.drawable.utah_jazz_logo,R.drawable.card_background_utah_jazz),
+            "Washington Wizards" to Pair(R.drawable.washington_wizards_logo,R.drawable.card_background_washington_wizards)
         )
-
-
+        return teamStats.map { stat ->
+            val (logoRes, backgroundRes) = teamImages[stat.team_name] ?: Pair(0, 0)
+            TeamItem(
+                teamName = stat.team_name,
+                logoRes = logoRes,
+                backgroundRes = backgroundRes,
+                tier = stat.tier,
+                ovr = stat.ovr.toInt(),
+                ins = stat.ins.toInt(),
+                out = stat.out.toInt(),
+                ath = stat.ath.toInt(),
+                pla = stat.pla.toInt(),
+                def = stat.def.toInt(),
+                reb = stat.reb.toInt(),
+                int = stat.int.toInt(),
+                pot = stat.pot.toInt()
+            )
+        }
     }
-
-
-
-
-
-
 }

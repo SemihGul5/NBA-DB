@@ -28,9 +28,9 @@ class TeamAdapter(val context:Context,
     override fun onBindViewHolder(holder: TeamHolder, position: Int) {
         val binding=holder.binding
         val team=teamItemList.get(position)
-        binding.cardBackground.background=context.getDrawable(team.background)
-        binding.logoImageView.setImageResource(team.logo)
-        binding.teamNameTextView.text=team.name
+        binding.cardBackground.background=context.getDrawable(team.backgroundRes)
+        binding.logoImageView.setImageResource(team.logoRes)
+        binding.teamNameTextView.text=team.teamName
 
         binding.cardBackground.setOnClickListener {
             val navDirection=HomeFragmentDirections.actionHomeFragmentToTeamDetailFragment(team)

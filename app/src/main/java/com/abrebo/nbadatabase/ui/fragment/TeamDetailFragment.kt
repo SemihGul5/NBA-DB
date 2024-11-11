@@ -12,7 +12,6 @@ import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.databinding.FragmentTeamDetailBinding
 import com.abrebo.nbadatabase.ui.adapter.TeamDetailAdapter
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
-import com.abrebo.nbadatabase.ui.viewmodel.QuizViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +35,7 @@ class TeamDetailFragment : Fragment() {
         val team=TeamDetailFragmentArgs.fromBundle(requireArguments()).team
         viewModel.players.observe(viewLifecycleOwner){playerList->
             playerList.forEach {
-                if (team.name == it.team) {
+                if (team.teamName == it.team) {
                     players.add(it)
                 }
             }
@@ -44,12 +43,12 @@ class TeamDetailFragment : Fragment() {
             binding.teamPlayersRecyclerView.adapter=adapter
         }
 
-        binding.teamLogoImageView.setImageResource(team.logo)
-        binding.teamNameTextView.text=team.name
+        binding.teamLogoImageView.setImageResource(team.logoRes)
+        binding.teamNameTextView.text=team.teamName
 
         viewModel.teamStats.observe(viewLifecycleOwner){teamStatsList->
             teamStatsList.forEach {
-                if (it.team_name==team.name){
+                if (it.team_name==team.teamName){
                     binding.tierText.text=it.tier
                     binding.ovrText.text=it.ovr
                     binding.insText.text=it.ins
