@@ -11,6 +11,7 @@ import com.abrebo.nbadatabase.R
 import com.abrebo.nbadatabase.databinding.FragmentPlayerDetailBinding
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.sumAllIntAttributes
+import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -48,8 +49,12 @@ class PlayerDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val player=PlayerDetailFragmentArgs.fromBundle(requireArguments()).player
-        val imageResource = viewModel.getImageResourceByName(player.imageUrl)
-        binding.playerImageView.setImageResource(imageResource)
+        //val imageResource = viewModel.getImageResourceByName(player.imageUrl)
+        //binding.playerImageView.setImageResource(imageResource)
+        Glide.with(requireContext())
+            .load(player.image_url)
+            .into(binding.playerImageView)
+
         binding.playerNameTextView.text=player.name
         binding.positionTextView.text="Pos: "+player.position
         binding.birthdateTextView.text="Brt: "+player.birthdate

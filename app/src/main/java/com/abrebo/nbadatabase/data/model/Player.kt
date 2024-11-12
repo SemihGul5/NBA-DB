@@ -6,7 +6,7 @@ data class Player(
     val name: String,
     val team: String,
     val overallAttribute: Int,
-    val imageUrl: String,
+    val image_url: String,
     val position:String,
     val birthdate:String,
     val archetype:String,

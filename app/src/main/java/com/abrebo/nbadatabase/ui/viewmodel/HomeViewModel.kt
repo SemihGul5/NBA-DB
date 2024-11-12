@@ -36,20 +36,22 @@ class HomeViewModel @Inject constructor (var repository: Repository,
     val sortedTeams = MutableLiveData<List<TeamItem>>()
 
     init {
-        loadPlayersFromAsset()
+        //loadPlayersFromAsset()
+        getRosterWithTeamsFromApi()
         loadTeamsFromAsset()
         loadTeamStatsFromAsset()
-        sortedTeamsFromAsset("Defaault")
+        sortedTeamsFromAsset("Default")
     }
 
     fun getRosterWithTeamsFromApi(){
         viewModelScope.launch {
-            players.value=repository.getRosterWithTeams()
+            players.value=repository.getRoster()
+            Log.e("player",players.value.toString())
         }
     }
     fun getRosterFromApi(){
         viewModelScope.launch {
-            teams.value=repository.getRoster()
+            teams.value=repository.getRosterWithTeams()
         }
     }
 

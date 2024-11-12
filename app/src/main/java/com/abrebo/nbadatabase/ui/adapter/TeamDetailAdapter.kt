@@ -2,6 +2,7 @@ package com.abrebo.nbadatabase.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.abrebo.nbadatabase.ui.fragment.nav_drawer.FilterAndSortPlayersFragmen
 import com.abrebo.nbadatabase.ui.viewmodel.FilterAndSortViewModel
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.PageType
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 
 class TeamDetailAdapter(val context:Context,
                         private var players:List<Player>,
@@ -39,8 +42,12 @@ class TeamDetailAdapter(val context:Context,
     override fun onBindViewHolder(holder: PlayerHolder, position: Int) {
         val binding=holder.binding
         val player= players[position]
-        val imageResource = getImageResourceByName(player.imageUrl)
-        binding.ivPlayerImage.setImageResource(imageResource)
+        //val imageResource = getImageResourceByName(player.imageUrl)
+        //binding.ivPlayerImage.setImageResource(imageResource)
+        Glide.with(context)
+            .load(player.image_url)
+            .into(binding.ivPlayerImage)
+
         binding.tvPlayerName.text=player.name
         binding.playerOverall.text=player.overallAttribute.toString()
         binding.threePoint.text=player.threePointShot.toString()

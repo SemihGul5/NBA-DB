@@ -11,8 +11,8 @@ import org.json.JSONObject
 class Repository(private var dataSource: DataSource,
                  private var context: Context) {
 
-    suspend fun getRosterWithTeams():List<Player> = dataSource.getRosterWithTeams()
-    suspend fun getRoster():List<Teams> = dataSource.getRoster()
+    suspend fun getRosterWithTeams():List<Teams> = dataSource.getRosterWithTeams()
+    suspend fun getRoster():List<Player> = dataSource.getRoster()
     fun loadJsonFromAsset(jsonFile:String): String? {
         val jsonString: String
         try {
@@ -37,7 +37,7 @@ class Repository(private var dataSource: DataSource,
                     name = playerJson.getString("name"),
                     team = playerJson.getString("team"),
                     overallAttribute = playerJson.getInt("overallAttribute"),
-                    imageUrl =playerJson.getString("image_url"),
+                    image_url =playerJson.getString("image_url"),
                     position =playerJson.getString("position"),
                     birthdate =playerJson.getString("birthdate"),
                     archetype =playerJson.getString("archetype"),
@@ -162,7 +162,7 @@ class Repository(private var dataSource: DataSource,
                 name = playerJson.getString("name"),
                 team = playerJson.getString("team"),
                 overallAttribute = playerJson.getInt("overallAttribute"),
-                imageUrl = playerJson.getString("image_url"),
+                image_url = playerJson.getString("image_url"),
                 position =playerJson.getString("position"),
                 birthdate =playerJson.getString("birthdate"),
                 archetype =playerJson.getString("archetype"),

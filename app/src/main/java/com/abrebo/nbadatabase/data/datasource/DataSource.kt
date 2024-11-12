@@ -8,12 +8,12 @@ import kotlinx.coroutines.withContext
 
 class DataSource(private val rosterDao: RosterDao) {
 
-    suspend fun getRosterWithTeams():List<Player> =
+    suspend fun getRosterWithTeams():List<Teams> =
         withContext(Dispatchers.IO){
             return@withContext rosterDao.getRosterWithTeams()
         }
 
-    suspend fun getRoster():List<Teams> =
+    suspend fun getRoster():List<Player> =
         withContext(Dispatchers.IO){
             return@withContext rosterDao.getRoster()
         }

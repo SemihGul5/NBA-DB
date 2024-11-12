@@ -6,8 +6,8 @@ import retrofit2.http.GET
 
 interface RosterDao {
     @GET("roster.json")
-    suspend fun getRosterWithTeams():List<Player>
+    suspend fun getRosterWithTeams():List<Teams>
 
-    @GET("roster_no_team.json")
-    suspend fun getRoster():List<Teams>
+    @GET("roster_new.json")
+    suspend fun getRoster():List<Player>
 }
