@@ -19,11 +19,8 @@ import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import javax.inject.Inject
 
 @HiltViewModel
@@ -71,6 +68,7 @@ class HomeViewModel @Inject constructor (var repository: Repository,
             "Overall" -> loadTeamItems().sortedByDescending { it.ovr }
             "Inside Scoring" -> loadTeamItems().sortedByDescending { it.ins }
             "Outside Scoring" -> loadTeamItems().sortedByDescending { it.out }
+            "Athleticism"->loadTeamItems().sortedByDescending { it.ath }
             "Playmaking" -> loadTeamItems().sortedByDescending { it.pla }
             "Defense" -> loadTeamItems().sortedByDescending { it.def }
             "Rebounding" -> loadTeamItems().sortedByDescending { it.reb }

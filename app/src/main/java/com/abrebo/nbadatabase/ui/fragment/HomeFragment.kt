@@ -2,20 +2,12 @@ package com.abrebo.nbadatabase.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
-import android.widget.Toolbar
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
-import com.abrebo.nbadatabase.MainPageActivity
 import com.abrebo.nbadatabase.R
-import com.abrebo.nbadatabase.data.model.TeamItem
 import com.abrebo.nbadatabase.databinding.FragmentHomeBinding
 import com.abrebo.nbadatabase.ui.adapter.TeamAdapter
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
@@ -25,8 +17,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

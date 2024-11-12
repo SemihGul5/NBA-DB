@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.abrebo.nbadatabase.R
@@ -19,11 +18,11 @@ import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.PageType
 
 class TeamDetailAdapter(val context:Context,
-                        var players:List<Player>,
-                        val homeViewModel:HomeViewModel?,
-                        val filterViewModel:FilterAndSortViewModel?,
-                        val page:PageType,
-                        val att:String?
+                        private var players:List<Player>,
+                        private val homeViewModel:HomeViewModel?,
+                        private val filterViewModel:FilterAndSortViewModel?,
+                        private val page:PageType,
+                        private val att:String?
 ):RecyclerView.Adapter<TeamDetailAdapter.PlayerHolder>() {
     inner class PlayerHolder(val binding:PlayerItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -39,7 +38,7 @@ class TeamDetailAdapter(val context:Context,
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PlayerHolder, position: Int) {
         val binding=holder.binding
-        val player=players.get(position)
+        val player= players[position]
         val imageResource = getImageResourceByName(player.imageUrl)
         binding.ivPlayerImage.setImageResource(imageResource)
         binding.tvPlayerName.text=player.name
@@ -47,6 +46,12 @@ class TeamDetailAdapter(val context:Context,
         binding.threePoint.text=player.threePointShot.toString()
         binding.drivingDunk.text=player.drivingDunk.toString()
         binding.tvRank.text=(position+1).toString()+"."
+        binding.tvPlayerDetails.text=player.position+
+                " | "+ player.archetype+"| Age: "+
+                (2024-player.birthdate.split(", ")[1].toInt())
+
+
+
         if (page==PageType.TEAM_DETAIL){
             homeViewModel?.setAttributesBackground(player.overallAttribute, binding.playerOverall)
             homeViewModel?.setAttributesBackground(player.threePointShot, binding.threePoint)

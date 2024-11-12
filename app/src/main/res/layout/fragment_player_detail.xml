@@ -28,8 +28,8 @@
 
                     <ImageView
                         android:id="@+id/playerImageView"
-                        android:layout_width="185dp"
-                        android:layout_height="185dp"
+                        android:layout_width="175dp"
+                        android:layout_height="175dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
                         android:contentDescription="@string/player_image"
@@ -39,7 +39,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -47,16 +47,41 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Kevin Durant"
-                            android:textSize="23sp"
+                            android:textSize="19sp"
                             android:textStyle="bold" />
-
                         <TextView
                             android:id="@+id/teamSubtitleTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/nba_2k25_roster"
                             android:textColor="@android:color/holo_orange_light"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/teamTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/positionTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/birthdateTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/archetypeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/overallTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                 </LinearLayout>

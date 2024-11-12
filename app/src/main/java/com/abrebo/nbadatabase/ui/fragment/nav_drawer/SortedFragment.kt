@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.abrebo.nbadatabase.R
@@ -14,7 +13,6 @@ import com.abrebo.nbadatabase.databinding.FragmentSortedBinding
 import com.abrebo.nbadatabase.ui.adapter.TeamAdapter
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.PageType
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +30,24 @@ class SortedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleFilterMenuItem()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, sortedMenu())
+        binding.autoCompleteTextView.setAdapter(adapter)
+        binding.autoCompleteTextView.threshold = 1
+        binding.buttonApplyFilter.setOnClickListener {
+            val selectedAttribute = binding.autoCompleteTextView.text.toString()
+
+            if (sortedMenu().contains(selectedAttribute)) {
+                viewModel.sortedTeamsFromAsset(selectedAttribute)
+            } else {
+                Toast.makeText(requireContext(), "Please select a valid attribute", Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.sortedTeams.observe(viewLifecycleOwner) { sortedTeams ->
+            val selectedAttribute = binding.autoCompleteTextView.text.toString()
+            val adapter = TeamAdapter(requireContext(), sortedTeams,PageType.SORT_TEAMS,selectedAttribute)
+            binding.recyclerViewTeams.adapter = adapter
+        }
+
     }
     private fun sortedMenu():List<String>{
         return listOf(
@@ -47,24 +62,5 @@ class SortedFragment : Fragment() {
             "Intangibles",
             "Potential"
         )
-    }
-    private fun handleFilterMenuItem() {
-        val dialog = BottomSheetDialog(requireContext())
-        val bottomSheet = layoutInflater.inflate(R.layout.main_page_bottom_sheet, null)
-        val listView = bottomSheet.findViewById<ListView>(R.id.listViewBottomSheet)
-        val listViewAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, sortedMenu())
-        listView.adapter = listViewAdapter
-
-        listView.setOnItemClickListener { parent, view, position, id ->
-            val selectedItemText = (parent.getItemAtPosition(position) as String)
-            viewModel.sortedTeamsFromAsset(selectedItemText)
-            dialog.dismiss()
-            viewModel.sortedTeams.observe(viewLifecycleOwner) { sortedTeams ->
-                val adapter = TeamAdapter(requireContext(), sortedTeams,PageType.SORT_TEAMS,selectedItemText)
-                binding.recyclerViewTeams.adapter = adapter
-            }
-        }
-        dialog.setContentView(bottomSheet)
-        dialog.show()
     }
 }

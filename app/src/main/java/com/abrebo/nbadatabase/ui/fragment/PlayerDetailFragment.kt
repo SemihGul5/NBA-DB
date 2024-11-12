@@ -1,5 +1,6 @@
 package com.abrebo.nbadatabase.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,12 +44,19 @@ class PlayerDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val player=PlayerDetailFragmentArgs.fromBundle(requireArguments()).player
         val imageResource = viewModel.getImageResourceByName(player.imageUrl)
         binding.playerImageView.setImageResource(imageResource)
         binding.playerNameTextView.text=player.name
+        binding.positionTextView.text="Pos: "+player.position
+        binding.birthdateTextView.text="Brt: "+player.birthdate
+        binding.archetypeTextView.text="Arc: "+player.archetype
+        binding.teamTextView.text="Team: "+player.team
+        binding.overallTextView.text="Ovr: "+player.overallAttribute.toString()
+        viewModel.setAttributesBackground(player.overallAttribute,binding.overallTextView)
         val outsideScoring=((player.closeShot+player.midRangeShot+player.threePointShot+
                 player.freeThrow+player.shotIQ+player.offensiveConsistency)/6.0).roundToInt()
         binding.outsideScoring.text=outsideScoring.toString()

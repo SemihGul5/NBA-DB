@@ -1,7 +1,6 @@
 package com.abrebo.nbadatabase.data.repo
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import com.abrebo.nbadatabase.data.datasource.DataSource
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.data.model.TeamStats
@@ -39,6 +38,9 @@ class Repository(private var dataSource: DataSource,
                     team = playerJson.getString("team"),
                     overallAttribute = playerJson.getInt("overallAttribute"),
                     imageUrl =playerJson.getString("image_url"),
+                    position =playerJson.getString("position"),
+                    birthdate =playerJson.getString("birthdate"),
+                    archetype =playerJson.getString("archetype"),
                     closeShot = playerJson.getInt("closeShot"),
                     midRangeShot = playerJson.getInt("midRangeShot"),
                     threePointShot = playerJson.getInt("threePointShot"),
@@ -161,6 +163,9 @@ class Repository(private var dataSource: DataSource,
                 team = playerJson.getString("team"),
                 overallAttribute = playerJson.getInt("overallAttribute"),
                 imageUrl = playerJson.getString("image_url"),
+                position =playerJson.getString("position"),
+                birthdate =playerJson.getString("birthdate"),
+                archetype =playerJson.getString("archetype"),
                 closeShot = playerJson.getInt("closeShot"),
                 midRangeShot = playerJson.getInt("midRangeShot"),
                 threePointShot = playerJson.getInt("threePointShot"),

@@ -13,9 +13,9 @@ import com.abrebo.nbadatabase.ui.fragment.nav_drawer.SortedFragmentDirections
 import com.abrebo.nbadatabase.utils.PageType
 
 class TeamAdapter(val context:Context,
-                  val teamItemList:List<TeamItem>,
-                  val page:PageType,
-                  val sortInfo:String?
+                  private val teamItemList:List<TeamItem>,
+                  private val page:PageType,
+                  private val sortInfo:String?
 ):RecyclerView.Adapter<TeamAdapter.TeamHolder>() {
     inner class TeamHolder(val binding:TeamCardItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -31,7 +31,7 @@ class TeamAdapter(val context:Context,
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun onBindViewHolder(holder: TeamHolder, position: Int) {
         val binding=holder.binding
-        val team=teamItemList.get(position)
+        val team= teamItemList[position]
         binding.cardBackground.background=context.getDrawable(team.backgroundRes)
         binding.logoImageView.setImageResource(team.logoRes)
         binding.teamNameTextView.text=team.teamName
@@ -40,6 +40,7 @@ class TeamAdapter(val context:Context,
                 "Overall" -> binding.sortedText.text=sortInfo+": "+team.ovr
                 "Inside Scoring" -> binding.sortedText.text=sortInfo+": "+team.ins
                 "Outside Scoring" -> binding.sortedText.text=sortInfo+": "+team.out
+                "Athleticism" -> binding.sortedText.text=sortInfo+": "+team.ath
                 "Playmaking" -> binding.sortedText.text=sortInfo+": "+team.pla
                 "Defense" -> binding.sortedText.text=sortInfo+": "+team.def
                 "Rebounding" -> binding.sortedText.text=sortInfo+": "+team.reb
