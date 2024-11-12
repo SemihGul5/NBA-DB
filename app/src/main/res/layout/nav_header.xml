@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="@drawable/nba_background"
+    android:background="@drawable/wallpaper"
     android:padding="16dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/app_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/basketball_icon"
+        android:src="@drawable/nba_db"
         android:contentDescription="@string/app_icon_desc"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="16dp" />
@@ -18,7 +18,7 @@
         android:id="@+id/header_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NBA 2K Database"
+        android:text="NBA 25 Database"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@android:color/white"
         android:layout_toEndOf="@id/app_icon"

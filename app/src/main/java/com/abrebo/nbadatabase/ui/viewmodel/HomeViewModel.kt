@@ -11,7 +11,6 @@ import com.abrebo.nbadatabase.R
 import com.abrebo.nbadatabase.data.model.Player
 import com.abrebo.nbadatabase.data.model.TeamItem
 import com.abrebo.nbadatabase.data.model.TeamStats
-import com.abrebo.nbadatabase.data.model.Teams
 import com.abrebo.nbadatabase.data.repo.Repository
 import com.github.mikephil.charting.charts.RadarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -30,39 +29,26 @@ class HomeViewModel @Inject constructor (var repository: Repository,
     private val context = getApplication<Application>().applicationContext
 
     val players=MutableLiveData<List<Player>>()
-    val teams=MutableLiveData<List<Teams>>()
-    val teamsAsset=MutableLiveData<Teams>()
+    val teamsAsset=MutableLiveData<List<TeamItem>>()
     val teamStats=MutableLiveData<List<TeamStats>>()
     val sortedTeams = MutableLiveData<List<TeamItem>>()
 
     init {
         //loadPlayersFromAsset()
-        getRosterWithTeamsFromApi()
+        getRosterFromApi()
         loadTeamsFromAsset()
         loadTeamStatsFromAsset()
         sortedTeamsFromAsset("Default")
     }
 
-    fun getRosterWithTeamsFromApi(){
-        viewModelScope.launch {
-            players.value=repository.getRoster()
-            Log.e("player",players.value.toString())
-        }
-    }
     fun getRosterFromApi(){
         viewModelScope.launch {
-            teams.value=repository.getRosterWithTeams()
+            players.value=repository.getRoster()
         }
     }
 
-    private fun loadPlayersFromAsset() {
-        val jsonString =repository.loadJsonFromAsset("roster_with_ids")
-        if (jsonString != null) {
-            players.value = repository.parsePlayerJson(jsonString)
-        }
-    }
     fun loadTeamsFromAsset() {
-        teamsAsset.value =repository.parseTeamsJson("roster")
+        teamsAsset.value=loadTeamItems()
     }
     fun sortedTeamsFromAsset(sortInfo: String) {
         val sortedList = when (sortInfo) {
@@ -84,15 +70,7 @@ class HomeViewModel @Inject constructor (var repository: Repository,
         val jsonString =repository.loadJsonFromAsset("team_stats")
         teamStats.value=repository.parseTeamStatsJson(jsonString!!)
     }
-    fun getImageResourceByName(imageName: String): Int {
-        val resourceId = context.resources?.getIdentifier(imageName, "drawable", context.packageName)
-        return if (resourceId != 0) {
-            resourceId ?: R.drawable.default_image
-        } else {
-            R.drawable.default_image
-        }
-        //val imageResource = getImageResourceByName(question.player.imageUrl)
-    }
+
     fun setAttributesBackground(attributeValue: Int, textView: TextView) {
         val backgroundResource = when {
             attributeValue > 85 -> R.drawable.overall_dark_green_background

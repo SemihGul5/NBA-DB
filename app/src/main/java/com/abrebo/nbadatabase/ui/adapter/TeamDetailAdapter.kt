@@ -18,7 +18,6 @@ import com.abrebo.nbadatabase.ui.viewmodel.FilterAndSortViewModel
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.PageType
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 
 class TeamDetailAdapter(val context:Context,
                         private var players:List<Player>,
@@ -42,8 +41,6 @@ class TeamDetailAdapter(val context:Context,
     override fun onBindViewHolder(holder: PlayerHolder, position: Int) {
         val binding=holder.binding
         val player= players[position]
-        //val imageResource = getImageResourceByName(player.imageUrl)
-        //binding.ivPlayerImage.setImageResource(imageResource)
         Glide.with(context)
             .load(player.image_url)
             .into(binding.ivPlayerImage)
@@ -241,13 +238,4 @@ class TeamDetailAdapter(val context:Context,
 
     }
 
-    private fun getImageResourceByName(imageName: String): Int {
-        val resourceId = context.resources?.getIdentifier(imageName, "drawable", context.packageName)
-        return if (resourceId != 0) {
-            resourceId ?: R.drawable.default_image
-        } else {
-            R.drawable.default_image
-        }
-
-    }
 }

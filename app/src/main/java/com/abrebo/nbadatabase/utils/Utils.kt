@@ -6,7 +6,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.abrebo.nbadatabase.data.model.Player
-import kotlin.reflect.full.memberProperties
 
 object BackPressUtils {
 

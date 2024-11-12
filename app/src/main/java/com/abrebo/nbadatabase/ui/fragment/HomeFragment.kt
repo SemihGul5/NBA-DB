@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
         MobileAds.initialize(requireContext()) {}
         adView = AdView(requireContext())
-        adView.adUnitId = "ca-app-pub-4667560937795938/8788267145"
+        adView.adUnitId = "ca-app-pub-4667560937795938/1492240798"
         adView.setAdSize(AdSize.BANNER)
         binding.adView.removeAllViews()
         binding.adView.addView(adView)

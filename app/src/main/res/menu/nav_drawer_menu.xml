@@ -10,7 +10,7 @@
         android:title="Top 100 Players" />
     <item
         android:id="@+id/bestThreePointPlayersFragment"
-        android:icon="@drawable/trophy"
+        android:icon="@drawable/shot"
         android:title="Best Three Point Players" />
     <item
         android:id="@+id/filterAndSortPlayersFragment"

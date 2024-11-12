@@ -32,14 +32,11 @@ class PlayerDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=FragmentPlayerDetailBinding.inflate(inflater, container, false)
         MobileAds.initialize(requireContext()) {}
-
-        // Setup Banner Ad
         adView = AdView(requireContext())
-        adView.adUnitId = "ca-app-pub-4667560937795938/2377506116"
+        adView.adUnitId = "ca-app-pub-4667560937795938/2509808993"
         adView.setAdSize(AdSize.BANNER)
         binding.adView.removeAllViews()
         binding.adView.addView(adView)
-
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
         return binding.root
@@ -49,8 +46,6 @@ class PlayerDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val player=PlayerDetailFragmentArgs.fromBundle(requireArguments()).player
-        //val imageResource = viewModel.getImageResourceByName(player.imageUrl)
-        //binding.playerImageView.setImageResource(imageResource)
         Glide.with(requireContext())
             .load(player.image_url)
             .into(binding.playerImageView)
