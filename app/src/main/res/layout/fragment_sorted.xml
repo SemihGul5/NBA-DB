@@ -20,6 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Select Attribute"
+            android:popupBackground="@color/white"
+            android:textColor="@color/black"
+            android:background="@color/white"
             tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>

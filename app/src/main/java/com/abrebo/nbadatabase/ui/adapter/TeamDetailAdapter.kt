@@ -14,6 +14,7 @@ import com.abrebo.nbadatabase.databinding.PlayerItemBinding
 import com.abrebo.nbadatabase.ui.fragment.TeamDetailFragmentDirections
 import com.abrebo.nbadatabase.ui.fragment.nav_drawer.BestThreePointPlayersFragmentDirections
 import com.abrebo.nbadatabase.ui.fragment.nav_drawer.FilterAndSortPlayersFragmentDirections
+import com.abrebo.nbadatabase.ui.fragment.nav_drawer.Top100PlayerFragmentDirections
 import com.abrebo.nbadatabase.ui.viewmodel.FilterAndSortViewModel
 import com.abrebo.nbadatabase.ui.viewmodel.HomeViewModel
 import com.abrebo.nbadatabase.utils.PageType
@@ -77,7 +78,7 @@ class TeamDetailAdapter(val context:Context,
             binding.threePoint.visibility=View.GONE
             binding.drivingDunk.visibility=View.GONE
             binding.playerCard.setOnClickListener {
-                val navDirection=BestThreePointPlayersFragmentDirections.actionBestThreePointPlayersFragmentToPlayerDetailFragment(player)
+                val navDirection=Top100PlayerFragmentDirections.actionTop100PlayerFragmentToPlayerDetailFragment(player)
                 Navigation.findNavController(it).navigate(navDirection)
             }
         }else if (page==PageType.FILTER_AND_SORT){

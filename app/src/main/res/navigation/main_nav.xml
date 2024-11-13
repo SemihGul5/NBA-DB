@@ -9,7 +9,11 @@
         android:id="@+id/top100PlayerFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.Top100PlayerFragment"
         android:label="fragment_top100_player"
-        tools:layout="@layout/fragment_top100_player" />
+        tools:layout="@layout/fragment_top100_player" >
+        <action
+            android:id="@+id/action_top100PlayerFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bestThreePointPlayersFragment"
         android:name="com.abrebo.nbadatabase.ui.fragment.nav_drawer.BestThreePointPlayersFragment"
